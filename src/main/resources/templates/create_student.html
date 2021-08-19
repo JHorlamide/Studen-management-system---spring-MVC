@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+            <h2 class="text-center">Create New Student</h2>
+            <div class="card-body">
+                <form th:action="@{/students}" th:object="${student}" method="post">
+                    <div class="form-group">
+                        <!-- First Name -->
+                        <label>Student First Name</label>
+                        <input
+                                class="form-control"
+                                type="text"
+                                name="firstName"
+                                th:field="*{firstName}"
+                                placeholder="Enter Student First Name"
+                                aria-label=".form-control-lg example"
+                        >
+
+                        <!-- Last Name -->
+                        <label>Student Last Name</label>
+                        <input
+                                class="form-control"
+                                type="text"
+                                name="lastName"
+                                th:field="*{lastName}"
+                                placeholder="Enter Student Last Name"
+                                aria-label=".form-control-lg example"
+                        >
+
+                        <!-- Email-->
+                        <label>Student Email</label>
+                        <input
+                                class="form-control"
+                                type="email"
+                                name="email"
+                                th:field="*{email}"
+                                placeholder="Enter Student Email"
+                                aria-label=".form-control-lg example"
+                        >
+                    </div>
+                    <div class="box-footer">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
