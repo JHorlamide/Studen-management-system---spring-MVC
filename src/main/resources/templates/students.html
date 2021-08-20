@@ -7,6 +7,25 @@
           integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
 </head>
 <body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+    <!-- Brand -->
+    <a class="navbar-brand my-3" th:href="@{/students}">Student Management System</a>
+
+    <!-- Toggler/collapsible Button -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar links -->
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/students}">Student Management</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
 <div class="container">
     <div class="row">
         <h1>Student List</h1>
@@ -15,7 +34,7 @@
     <!--    Add Button-->
     <div class="row">
         <div class="col-lg-3">
-            <a th:href = "@{/students/new}" class="btn btn-primary btn-sm mb-3">Add Student</a>
+            <a th:href="@{/students/new}" class="btn btn-primary btn-sm mb-3">Add Student</a>
         </div>
     </div>
 
@@ -35,8 +54,8 @@
             <td th:text="${student.lastName}"></td>
             <td th:text="${student.email}"></td>
             <td>
-                <button type="button" class="btn btn-primary px-3">Edit</button>
-                <button type="button" class="btn btn-danger px-3">Delete</button>
+                <a th:href="@{/students/edit/{id}(id=${student.id})}" class="btn btn-primary">Update</a>
+                <a th:href="@{/students/{id}(id=${student.id})}" class="btn btn-danger">Delete</a>
             </td>
         </tr>
         </tbody>

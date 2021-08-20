@@ -5,10 +5,7 @@ import com.studenmanagement.StudentManagementSystem.services.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class StudentController {
@@ -46,8 +43,50 @@ public class StudentController {
      * DESC: Create new student
      * */
     @PostMapping("/students")
-    public String createStudent(@ModelAttribute("student") Student student){
+    public String createStudent(@ModelAttribute("student") Student student) {
         studentService.saveStudent(student);
+        return "redirect:/students";
+    }
+
+
+    /*
+     * ROUTE: GET: /students/edit/id
+     * DESC: Render view for update student details
+     * */
+    @GetMapping("/students/edit/{id}")
+    public String editStudentForm(@PathVariable("id") Long id, Model model) {
+        model.addAttribute("student", studentService.getStudentById(id));
+        return "edit_student";
+    }
+
+
+    /*
+     * ROUTE: POST: /students/id
+     * DESC: Update and save updated student details
+     * */
+    @PostMapping("/students/{id}")
+    public String updateStudent(@PathVariable("id") Long id,
+                                @ModelAttribute("student") Student student, Model model) {
+
+        //Get student from database by id
+        Student existingStudent = studentService.getStudentById(id);
+        existingStudent.setId(id);
+        existingStudent.setFirstName(student.getFirstName());
+        existingStudent.setLastName(student.getLastName());
+        existingStudent.setEmail(student.getEmail());
+
+        //Save updated student objects
+        studentService.updateStudent(existingStudent);
+        return "redirect:/students";
+    }
+
+    /*
+     * ROUTE: DELETE: /students/id
+     * DESC: Delete student from student list
+     * */
+    @GetMapping("/students/{id}")
+    public String deleteStudent(@PathVariable("id") Long id) {
+        studentService.deleteStudentById(id);
         return "redirect:/students";
     }
 }
